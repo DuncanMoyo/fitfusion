@@ -1,4 +1,4 @@
- 
+import { Header } from "@/components/shared";
 
 export default function RootLayout({
   children,
@@ -6,8 +6,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <div className="flex flex-col h-screen">
+      <Header />
+      <main className="flex-1">{children}</main>
+    </div>
   );
 }
