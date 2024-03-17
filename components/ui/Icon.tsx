@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { IconContext } from "react-icons";
+import { MdMenu } from "react-icons/md";
 
-export const iconNames = [] as const;
+export const iconNames = ["menu"] as const;
 
 export type IconName = (typeof iconNames)[number];
 
@@ -22,6 +23,8 @@ const selectIcon = (
   size: IconSize | string
 ): JSX.Element => {
   switch (iconName) {
+    case "menu":
+      return <MdMenu />;
     default:
       return <></>;
   }
