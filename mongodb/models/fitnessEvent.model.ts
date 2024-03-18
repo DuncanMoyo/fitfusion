@@ -10,7 +10,7 @@ export interface IFitnessEvent extends Document {
   createdAt: Date;
   startDateTime: Date;
   endDateTime: Date;
-  location?: string;
+  venue?: string;
   url?: string;
   imageUrl: string;
   organiser: { _id: string; firstname: string; lastname: string };
@@ -30,7 +30,7 @@ const FitnessEventSchema = new Schema({
   endDateTime: { type: Date, default: Date.now },
 
   // Event location and resources
-  location: { type: String },
+  venue: { type: String },
   url: { type: String },
   imageUrl: { type: String, required: true },
 
