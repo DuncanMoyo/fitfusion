@@ -15,12 +15,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import { formSchema } from "@/lib/formSchema";
+import { defaultFormValues } from "@/constants";
+import Cadet from "./Cadet";
 
 type FitnessEventFormProps = {
   userId: string;
@@ -30,9 +27,7 @@ type FitnessEventFormProps = {
 const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
+    defaultValues: defaultFormValues,
   });
 
   // 2. Define a submit handler.
@@ -44,23 +39,38 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-5"
+      >
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input placeholder="Fitness Event Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="categoryId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Cadet onChangeHandler={field.onChange} value={field.value} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
