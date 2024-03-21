@@ -12,3 +12,17 @@ export const headerLinks = [
     path: "/profile",
   },
 ];
+
+
+export const defaultFormValues = {
+  title: '',
+  description: '',
+  location: '',
+  imageUrl: '',
+  startDateTime: new Date(),
+  endDateTime: new Date(),
+  categoryId: '',
+  price: '',
+  isFree: false,
+  url: '',
+}
