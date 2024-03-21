@@ -8,16 +8,15 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formSchema } from "@/lib/formSchema";
 import { defaultFormValues } from "@/constants";
-import Cadet from "./Cadet";
+import CategorySelect from "./CategorySelect";
+import { Textarea } from "../ui/textarea";
 
 type FitnessEventFormProps = {
   userId: string;
@@ -63,7 +62,25 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Cadet onChangeHandler={field.onChange} value={field.value} />
+                  <CategorySelect
+                    onChangeHandler={field.onChange}
+                    value={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl className="h-64">
+                  <Textarea placeholder="Describe your event" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
