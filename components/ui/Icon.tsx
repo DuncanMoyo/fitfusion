@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { IconContext } from "react-icons";
-import { MdMenu } from "react-icons/md";
+import { MdCalendarMonth, MdLocationPin, MdMenu } from "react-icons/md";
 
-export const iconNames = ["menu"] as const;
+export const iconNames = ["menu", "location", "calendar"] as const;
 
 export type IconName = (typeof iconNames)[number];
 
@@ -25,6 +25,10 @@ const selectIcon = (
   switch (iconName) {
     case "menu":
       return <MdMenu />;
+    case "location":
+      return <MdLocationPin />;
+    case "calendar":
+      return <MdCalendarMonth />;
     default:
       return <></>;
   }

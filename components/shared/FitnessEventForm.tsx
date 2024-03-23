@@ -10,6 +10,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,9 @@ import { formSchema } from "@/lib/formSchema";
 import { defaultFormValues } from "@/constants";
 import CategorySelect from "./CategorySelect";
 import { Textarea } from "../ui/textarea";
+import ImageUploader from "./ImageUploader";
+import { useState } from "react";
+import Icon from "../ui/Icon";
 
 type FitnessEventFormProps = {
   userId: string;
@@ -24,6 +28,7 @@ type FitnessEventFormProps = {
 };
 
 const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
+  const [images, setImages] = useState<File[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultFormValues,
@@ -81,6 +86,61 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
               <FormItem className="w-full">
                 <FormControl className="h-64">
                   <Textarea placeholder="Describe your event" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="w-full h-full">
+                <FormControl className="h-80">
+                  <ImageUploader
+                    onFieldChange={field.onChange}
+                    setImages={setImages}
+                    imageUrl={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                    <Icon name="location" />
+                    <Input {...field} placeholder="Event Location or Online" />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="startDateTime"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                    <Icon name="calendar" />
+                    <FormLabel className="text-gray-600">Start Date</FormLabel>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
