@@ -25,6 +25,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ImageUploader from "./ImageUploader";
 import { Checkbox } from "../ui/checkbox";
+import { useUploadThing } from "@/lib/uploadthing";
+import { useRouter } from "next/navigation";
+import { createEvent } from "@/lib/actions/event.actions";
 
 type FitnessEventFormProps = {
   userId: string;
@@ -34,16 +37,40 @@ type FitnessEventFormProps = {
 const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
   const [images, setImages] = useState<File[]>([]);
 
+  const { startUpload } = useUploadThing("imageUploader");
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultFormValues,
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let eventImageUrl = values.imageUrl;
+
+    if (images.length > 0) {
+      const uploadedImages = await startUpload(images);
+
+      if (!uploadedImages) return;
+
+      eventImageUrl = uploadedImages[0].url;
+    }
+    if (type === "Create") {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: eventImageUrl },
+          userId,
+          path: "/profile",
+        });
+        if (newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   return (
@@ -91,23 +118,6 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
               <FormItem className="w-full">
                 <FormControl className="h-64">
                   <Textarea placeholder="Describe your event" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem className="w-full h-full">
-                <FormControl className="h-80">
-                  <ImageUploader
-                    onFieldChange={field.onChange}
-                    setImages={setImages}
-                    imageUrl={field.value}
-                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -213,6 +223,8 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
                               <Checkbox
                                 className="mr-2 h-5 border-2"
                                 id="isFree"
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
                               />
                             </div>
                           </FormControl>
@@ -239,6 +251,25 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
                     <Icon name="link" />
                     <Input {...field} placeholder="URL" />
                   </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="w-full h-full">
+                <FormControl className="h-80">
+                  <ImageUploader
+                    onFieldChange={field.onChange}
+                    setImages={setImages}
+                    imageUrl={field.value}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

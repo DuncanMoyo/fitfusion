@@ -1,4 +1,4 @@
-import { startTransition, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -19,8 +19,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { IFitnessEvent } from "@/mongodb/models/fitnessEvent.model";
 import { Input } from "../ui/input";
+import {
+  createCategory,
+  getAllCategories,
+} from "@/lib/actions/category.actions";
+import { ICategory } from "@/mongodb/models/category.model";
 
 type CategorySelectProps = {
   value?: string;
@@ -28,14 +32,25 @@ type CategorySelectProps = {
 };
 
 const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
-  const [categories, setCategories] = useState<IFitnessEvent[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [newCategory, setNewCategory] = useState("");
 
-  const categorySelectHandler = (event: any) => {
-    setNewCategory(event.target.value);
+  const addCategoryHandler = () => {
+    createCategory({
+      categoryName: newCategory.trim(),
+    }).then((category) => {
+      setCategories((prevState) => [...prevState, category]);
+    });
   };
 
-  const addCategoryHandler = () => {};
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
+      categoryList && setCategories(categoryList as ICategory[]);
+    };
+    getCategories();
+    
+  }, []);
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
@@ -44,15 +59,15 @@ const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
       </SelectTrigger>
       <SelectContent>
         {categories.length > 0 &&
-          categories.map(({ title, _id }, idx) => (
+          categories.map(({ name, _id }, idx) => (
             <SelectItem key={idx} value={_id}>
-              {title}
+              {name}
             </SelectItem>
           ))}
 
         <AlertDialog>
           <AlertDialogTrigger className="flex w-full rounded-sm py-3 pl-8">
-            Open
+            Add a Category
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -61,7 +76,7 @@ const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
                 <Input
                   type="text"
                   placeholder="Category Name"
-                  onChange={categorySelectHandler}
+                  onChange={(e) => setNewCategory(e.target.value)}
                 />
               </AlertDialogDescription>
             </AlertDialogHeader>
@@ -69,7 +84,9 @@ const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => startTransition(addCategoryHandler)}
-              ></AlertDialogAction>
+              >
+                Add
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
