@@ -1,8 +1,10 @@
+import { EventList } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  
   return (
     <>
       <section className="py-5 md:py-10">
@@ -33,14 +35,25 @@ export default function Home() {
           />
         </div>
       </section>
-      <section id="events" className="my-8 flex flex-col gap-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full md:gap-12">
+      <section
+        id="events"
+        className="my-8 flex flex-col gap-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full md:gap-12"
+      >
         <h2 className="font-medium text-[32px] leading-[40px] lg:text-[36px] lg:leading-[44px] xl:text-[40px] xl:leading-[48px]">
           Trusted by <br /> Hundreds of Fitness Gurus
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search
-          Filter By Category
+          Search Filter By Category
         </div>
+        <EventList
+          data={[]}
+          title="No Events Found"
+          subtitle="Come back later"
+          eventType="All_Events"
+          limit={6}
+          currentPage={1}
+          totalPages={2}
+        />
       </section>
     </>
   );
