@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { IconContext } from "react-icons";
 import { MdCalendarMonth, MdLink, MdLocationPin, MdMenu } from "react-icons/md";
