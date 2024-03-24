@@ -98,8 +98,6 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
           />
         </div>
 
-      
-
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -198,6 +196,8 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
                               <Checkbox
                                 className="mr-2 h-5 border-2"
                                 id="isFree"
+                                onCheckedChange={field.onChange}
+                                checked={field.value}
                               />
                             </div>
                           </FormControl>

@@ -16,7 +16,6 @@ export type UpdateUserParams = {
 }
 
 // FITNESS EVENT PARAMETERS
-// ====== EVENT PARAMS
 export type CreateEventParams = {
   userId: string
   event: {
@@ -34,3 +33,7 @@ export type CreateEventParams = {
   path: string
 }
 
+// CATEGORY PARAMETERS
+export type CreateCategoryParams = {
+  categoryName: string
+}
