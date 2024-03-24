@@ -15,8 +15,9 @@ const ImageUploader = ({
   onFieldChange,
 }: ImageUploadProps) => {
   return (
-    <main className="bg-slate-700 flex flex-col items-center justify-between p-10">
+    <main className="bg-slate-50 flex h-64 flex-col items-center justify-between p-6 md:p-2">
       <UploadDropzone
+      className="h-48 md:h-56"
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response
