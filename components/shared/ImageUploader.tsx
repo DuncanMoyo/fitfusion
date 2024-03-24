@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useCallback } from "react";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { generateClientDropzoneAccept } from "uploadthing/client";
+import Image from "next/image";
 
 const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
@@ -37,12 +38,12 @@ const ImageUploader = ({
 
       {imageUrl ? (
         <div className="flex h-full w-full flex-1 justify-center ">
-          <img
+          <Image
             src={imageUrl}
             alt="image"
-            width={250}
-            height={250}
-            className="w-full object-cover object-center"
+            width={300}
+            height={300}
+            className="object-cover object-center"
           />
         </div>
       ) : (
