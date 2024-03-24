@@ -96,24 +96,9 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem className="w-full h-full">
-                <FormControl className="h-80">
-                  <ImageUploader
-                    onFieldChange={field.onChange}
-                    setImages={setImages}
-                    imageUrl={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
+
+      
 
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
@@ -239,6 +224,25 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
                     <Icon name="link" />
                     <Input {...field} placeholder="URL" />
                   </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="w-full h-full">
+                <FormControl className="h-80">
+                  <ImageUploader
+                    onFieldChange={field.onChange}
+                    setImages={setImages}
+                    imageUrl={field.value}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

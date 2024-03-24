@@ -69,7 +69,9 @@ const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => startTransition(addCategoryHandler)}
-              ></AlertDialogAction>
+              >
+                Add
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
