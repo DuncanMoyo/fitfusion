@@ -7,7 +7,7 @@ import React from "react";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
   const event = await getEventById(id);
-  console.log("🚀 ~ EventDetails ~ event:", event);
+  // console.log("🚀 ~ EventDetails ~ event:", event);
   return (
     <section className="flex justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-2 2xl: max-w-7xl">

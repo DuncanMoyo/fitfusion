@@ -1,10 +1,19 @@
 import { EventList } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { getAllEvents } from "@/lib/actions/event.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
-  
+export default async function Home() {
+  const events = await getAllEvents({
+    query: "",
+    category: "",
+    page: 1,
+    limit: 6,
+  });
+
+  // console.log("🚀 ~ Home ~ events:", events);
+
   return (
     <>
       <section className="py-5 md:py-10">
@@ -46,9 +55,9 @@ export default function Home() {
           Search Filter By Category
         </div>
         <EventList
-          data={[]}
-          title="No Events Found"
-          subtitle="Come back later"
+          data={events?.data}
+          emptyTitle="No Events Found"
+          emptySubtitle="Come back later"
           eventType="All_Events"
           limit={6}
           currentPage={1}
