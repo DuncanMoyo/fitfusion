@@ -18,9 +18,13 @@ import { formSchema } from "@/lib/formSchema";
 import { defaultFormValues } from "@/constants";
 import CategorySelect from "./CategorySelect";
 import { Textarea } from "../ui/textarea";
-import ImageUploader from "./ImageUploader";
 import { useState } from "react";
 import Icon from "../ui/Icon";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import ImageUploader from "./ImageUploader";
+import { Checkbox } from "../ui/checkbox";
 
 type FitnessEventFormProps = {
   userId: string;
@@ -29,6 +33,7 @@ type FitnessEventFormProps = {
 
 const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
   const [images, setImages] = useState<File[]>([]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultFormValues,
@@ -91,12 +96,10 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
               </FormItem>
             )}
           />
-        </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="description"
+            name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full h-full">
                 <FormControl className="h-80">
@@ -137,9 +140,45 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                  <div className="flex md:justify-start justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icon name="calendar" />
-                    <FormLabel className="text-gray-600">Start Date</FormLabel>
+                    <FormLabel className="text-gray-600 mr-3">
+                      Start Date
+                    </FormLabel>
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date: Date) => field.onChange(date)}
+                      showTimeSelect
+                      timeInputLabel="Time:"
+                      dateFormat="dd/MM/yyyy h:mm aa"
+                      wrapperClassName="datepicker"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="endDateTime"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2 md:justify-start">
+                    <Icon name="calendar" />
+                    <FormLabel className="text-gray-600 mr-3">
+                      End Date
+                    </FormLabel>
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date: Date) => field.onChange(date)}
+                      showTimeSelect
+                      timeInputLabel="Time:"
+                      dateFormat="dd/MM/yyyy h:mm aa"
+                      wrapperClassName="datepicker"
+                    />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -148,7 +187,73 @@ const FitnessEventForm = ({ userId, type }: FitnessEventFormProps) => {
           />
         </div>
 
-        <Button type="submit">Submit</Button>
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2 md:justify-start">
+                    <FormLabel className="text-gray-600 mr-3">R</FormLabel>
+                    <Input type="number" placeholder="Price" {...field} />
+                    <FormField
+                      control={form.control}
+                      name="isFree"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className="flex items-center">
+                              <FormLabel
+                                htmlFor="isFree"
+                                className="px-3 whitespace-nowrap"
+                              >
+                                Free Ticket
+                              </FormLabel>
+                              <Checkbox
+                                className="mr-2 h-5 border-2"
+                                id="isFree"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
+                    <Icon name="link" />
+                    <Input {...field} placeholder="URL" />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          className="col-span-2 w-full"
+          size="lg"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
+        </Button>
       </form>
     </Form>
   );
