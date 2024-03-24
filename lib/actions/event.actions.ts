@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateEventParams } from "@/types";
+import { CreateEventParams, GetAllEventParams } from "@/types";
 import { handleError } from "../utils";
 import { establishDatabaseConnection } from "@/mongodb";
 import User from "@/mongodb/models/user.model";
@@ -54,6 +54,34 @@ export const getEventById = async (eventId: string) => {
     }
 
     return JSON.parse(JSON.stringify(event));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getAllEvents = async ({
+  query,
+  limit = 6,
+  page,
+  category,
+}: GetAllEventParams) => {
+  try {
+    await establishDatabaseConnection();
+
+    const conditions = {};
+
+    const eventsQuery = FitnessEvent.find(conditions)
+      .sort({ createdAt: "desc" })
+      .skip(0)
+      .limit(limit);
+
+    const events = await populateEvent(eventsQuery);
+    const eventsCount = await FitnessEvent.countDocuments(conditions);
+
+    return {
+      data: JSON.parse(JSON.stringify(events)),
+      totalPages: Math.ceil(eventsCount / limit),
+    };
   } catch (error) {
     handleError(error);
   }
