@@ -40,6 +40,10 @@ export type GetAllEventParams = {
   page: number
 }
 
+export type EventDeleteParams = {
+  eventId: string
+  path: string
+}
 
 // CATEGORY PARAMETERS
 export type CreateCategoryParams = {
