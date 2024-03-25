@@ -3,7 +3,6 @@ import { getEventById } from "@/lib/actions/event.actions";
 import { dateTimeFormat } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
-import React from "react";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
   const event = await getEventById(id);
@@ -44,19 +43,19 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
             <div className="flex gap-2 md:gap-3">
               <Icon name="calendar" />
               <div className="flex flex-wrap items-center">
-                <p>
-                  {dateTimeFormat(event.startDateTime).dateOnly} -{" "}
-                  {dateTimeFormat(event.startDateTime).timeOnly}
+                <p className="mr-1 ">
+                  {dateTimeFormat(event.startDateTime).dateOnly} ,{" "}
+                  {dateTimeFormat(event.startDateTime).timeOnly} -
                 </p>
                 <p>
-                  {dateTimeFormat(event.endDateTime).dateOnly} -{" "}
+                {dateTimeFormat(event.endDateTime).dateOnly} ,{" "}
                   {dateTimeFormat(event.endDateTime).timeOnly}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Icon name="location" />
-              <p>{event.venue}</p>
+              <p>{event.location}</p>
             </div>
           </div>
           <div className="flex flex-col gap-2">

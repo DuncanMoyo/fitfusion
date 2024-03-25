@@ -4,6 +4,7 @@ import {
   CreateEventParams,
   EventDeleteParams,
   GetAllEventParams,
+  UpdateEventParams,
 } from "@/types";
 import { handleError } from "../utils";
 import { establishDatabaseConnection } from "@/mongodb";
@@ -99,8 +100,29 @@ export const deleteEvent = async ({ eventId, path }: EventDeleteParams) => {
     const deletedEvent = await FitnessEvent.findByIdAndDelete(eventId);
 
     if (deletedEvent) revalidatePath(path);
-    
   } catch (error) {
     handleError(error);
   }
 };
+
+export async function updateEvent({ userId, event, path }: UpdateEventParams) {
+  try {
+    await establishDatabaseConnection();
+
+    const eventToUpdate = await FitnessEvent.findById(event._id);
+    if (!eventToUpdate || eventToUpdate.organiser.toHexString() !== userId) {
+      throw new Error("Event not found");
+    }
+
+    const updatedEvent = await FitnessEvent.findByIdAndUpdate(
+      event._id,
+      { ...event, category: event.categoryId },
+      { new: true }
+    );
+    revalidatePath(path);
+
+    return JSON.parse(JSON.stringify(updatedEvent));
+  } catch (error) {
+    handleError(error);
+  }
+}

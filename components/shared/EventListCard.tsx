@@ -16,10 +16,10 @@ const EventListCard = ({
   hasOrderLink,
   hidePrice,
 }: EventListCardProps) => {
-  const {sessionClaims} = auth();
+  const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  const isEventOrganiser = userId === event.organiser._id.toString()
+  const isEventOrganiser = userId === event.organiser._id.toString();
   return (
     <div className="relative flex min-h-[380px] w-full max-w-[400px] flex-col rounded-xl bg-white overflow-hidden transition-all shadow-md hover:shadow-lg md:min-h-[440px]">
       <Link
@@ -45,7 +45,7 @@ const EventListCard = ({
             <span className="w-min rounded-full text-green-800 bg-green-200 px-3 py-1 ">
               {event.isFree ? "FREE" : `R${event.price}`}
             </span>
-            <p className="w-min rounded-full px-3 py-1 text-gray-600 bg-gray-300">
+            <p className="w-min rounded-full px-3 py-1 text-gray-600 bg-gray-300 line-clamp-1">
               {event.category.name}
             </p>
           </div>
@@ -62,9 +62,9 @@ const EventListCard = ({
           </p>
           {hasOrderLink && (
             <Link className="flex gap-2" href={`/orders?eventId=${event._id}`}>
-               <p>Order Details</p>
-               {/* TODO */}
-               {/* ADD ICON */}
+              <p>Order Details</p>
+              {/* TODO */}
+              {/* ADD ICON */}
             </Link>
           )}
         </div>

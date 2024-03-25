@@ -1,10 +1,18 @@
 import { FitnessEventForm } from "@/components/shared";
+import { getEventById } from "@/lib/actions/event.actions";
 import { auth } from "@clerk/nextjs";
 
-const UpdateEvent = () => {
-  const {sessionClaims} = auth();
+type UpdateEventProps = {
+  params: {
+    id: string;
+  };
+};
 
+const UpdateEvent = async ({ params: { id } }: UpdateEventProps) => {
+  const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+
+  const eventToUpdate = await getEventById(id);
   return (
     <>
       <section>
@@ -14,7 +22,12 @@ const UpdateEvent = () => {
       </section>
 
       <div className="my-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">
-        <FitnessEventForm userId={userId} type='Update'/>
+        <FitnessEventForm
+          userId={userId}
+          eventId={eventToUpdate._id}
+          event={eventToUpdate}
+          type="Update"
+        />
       </div>
     </>
   );
