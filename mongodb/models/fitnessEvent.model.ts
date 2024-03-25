@@ -13,7 +13,7 @@ export interface IFitnessEvent extends Document {
   venue?: string;
   url?: string;
   imageUrl: string;
-  organiser: { _id: string; firstname: string; lastname: string };
+  organiser: { _id: string; firstName: string; lastName: string };
 }
 
 const FitnessEventSchema = new Schema({

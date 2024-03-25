@@ -12,7 +12,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
     <section className="flex justify-center ">
       <div className="grid grid-cols-1 md:grid-cols-2 2xl: max-w-7xl">
         <Image
-          className="min-h-[300px] h-full object-cover object-center"
+          className="min-h-[300px] h-full w-full object-cover object-center"
           src={event.imageUrl}
           alt="Uploaded Image"
           width={500}
