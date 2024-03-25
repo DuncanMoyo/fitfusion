@@ -1,4 +1,5 @@
 import { EventList } from "@/components/shared";
+import OrderButton from "@/components/shared/OrderButton";
 import Icon from "@/components/ui/Icon";
 import { getEventById, getSimilarEvents } from "@/lib/actions/event.actions";
 import { dateTimeFormat } from "@/lib/utils";
@@ -49,7 +50,9 @@ const EventDetails = async ({
                 </p>
               </div>
             </div>
-            {/* PURCHASE BUTTON */}
+            
+            <OrderButton event={event} />
+
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
                 <Icon name="calendar" />
