@@ -61,10 +61,9 @@ const EventListCard = ({
             {event.organiser.firstName} {event.organiser.lastName}
           </p>
           {hasOrderLink && (
-            <Link className="flex gap-2" href={`/orders?eventId=${event._id}`}>
+            <Link className="flex gap-2 items-center" href={`/orders?eventId=${event._id}`}>
               <p>Order Details</p>
-              {/* TODO */}
-              {/* ADD ICON */}
+              <Icon name="externalLink"/>
             </Link>
           )}
         </div>

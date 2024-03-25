@@ -70,6 +70,12 @@ export type GetSimilarEventsParams = {
   page: number | string
 }
 
+export type GetEventsByOrganiserParams = {
+  userId: string
+  limit?: number
+  page: number
+}
+
 // CATEGORY PARAMETERS
 export type CreateCategoryParams = {
   categoryName: string;

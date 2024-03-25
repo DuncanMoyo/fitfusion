@@ -1,8 +1,15 @@
 import { EventList } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { getEventsByOrganiser } from "@/lib/actions/event.actions";
+import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 
-const MyProfile = () => {
+const MyProfile = async () => {
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+
+  const eventsOrganised = await getEventsByOrganiser({ userId, page: 1 });
+  // console.log("🚀 ~ MyProfile ~ eventsOrganised:", eventsOrganised);
   return (
     <>
       <section className="py-5 md:py-10">
@@ -40,18 +47,18 @@ const MyProfile = () => {
         </div>
       </section>
 
-      {/* <section className="my-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">
+      <section className="my-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">
         <EventList
-          data={events?.data}
+          data={eventsOrganised?.data}
           emptyTitle="No current events"
           emptySubtitle="Get Funky - Create one now"
           eventType="Events_Organised"
           limit={6}
-          totalPages={2}
           currentPage={1}
           urlParam="eventsPage"
+          totalPages={2}
         />
-      </section> */}
+      </section>
     </>
   );
 };

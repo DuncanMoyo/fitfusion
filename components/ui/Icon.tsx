@@ -10,6 +10,7 @@ import {
   MdLocationPin,
   MdMenu,
 } from "react-icons/md";
+import { LuExternalLink } from "react-icons/lu";
 
 export const iconNames = [
   "menu",
@@ -18,6 +19,7 @@ export const iconNames = [
   "link",
   "edit",
   "delete",
+  "externalLink",
 ] as const;
 
 export type IconName = (typeof iconNames)[number];
@@ -51,6 +53,8 @@ const selectIcon = (
       return <MdEditDocument />;
     case "delete":
       return <MdDelete />;
+    case "externalLink":
+      return <LuExternalLink />;
     default:
       return <></>;
   }

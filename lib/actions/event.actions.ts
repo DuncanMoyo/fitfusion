@@ -4,6 +4,7 @@ import {
   CreateEventParams,
   EventDeleteParams,
   GetAllEventParams,
+  GetEventsByOrganiserParams,
   GetSimilarEventsParams,
   UpdateEventParams,
 } from "@/types";
@@ -141,6 +142,34 @@ export async function getSimilarEvents({
     const conditions = {
       $and: [{ category: categoryId }, { _id: { $ne: eventId } }],
     };
+
+    const eventsQuery = FitnessEvent.find(conditions)
+      .sort({ createdAt: "desc" })
+      .skip(skipAmount)
+      .limit(limit);
+
+    const events = await populateEvent(eventsQuery);
+    const eventsCount = await FitnessEvent.countDocuments(conditions);
+
+    return {
+      data: JSON.parse(JSON.stringify(events)),
+      totalPages: Math.ceil(eventsCount / limit),
+    };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getEventsByOrganiser({
+  userId,
+  limit = 6,
+  page,
+}: GetEventsByOrganiserParams) {
+  try {
+    await establishDatabaseConnection();
+
+    const conditions = { organiser: userId };
+    const skipAmount = (page - 1) * limit;
 
     const eventsQuery = FitnessEvent.find(conditions)
       .sort({ createdAt: "desc" })
