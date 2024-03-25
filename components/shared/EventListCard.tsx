@@ -3,6 +3,7 @@ import { IFitnessEvent } from "@/mongodb/models/fitnessEvent.model";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 import Icon from "../ui/Icon";
+import DeleteEvent from "./DeleteEvent";
 
 type EventListCardProps = {
   event: IFitnessEvent;
@@ -32,6 +33,7 @@ const EventListCard = ({
           <Link href={`/events/${event._id}/update`}>
             <Icon name="edit" />
           </Link>
+          <DeleteEvent eventId={event._id} />
         </div>
       )}
       <Link
