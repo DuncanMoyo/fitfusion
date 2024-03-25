@@ -2,9 +2,21 @@
 
 import { FC } from "react";
 import { IconContext } from "react-icons";
-import { MdCalendarMonth, MdLink, MdLocationPin, MdMenu } from "react-icons/md";
+import {
+  MdCalendarMonth,
+  MdEditDocument,
+  MdLink,
+  MdLocationPin,
+  MdMenu,
+} from "react-icons/md";
 
-export const iconNames = ["menu", "location", "calendar", "link"] as const;
+export const iconNames = [
+  "menu",
+  "location",
+  "calendar",
+  "link",
+  "edit",
+] as const;
 
 export type IconName = (typeof iconNames)[number];
 
@@ -33,6 +45,8 @@ const selectIcon = (
       return <MdCalendarMonth />;
     case "link":
       return <MdLink />;
+    case "edit":
+      return <MdEditDocument />;
     default:
       return <></>;
   }
@@ -49,8 +63,8 @@ const selectIconSize = (iconSize?: string) => {
   }
 };
 
-const IconWrapper = (props: any) => (
-  <span style={props.pointer ? { cursor: "pointer" } : {}} {...props} />
+const IconWrapper = ({pointer, ...props}: any) => (
+  <span style={pointer ? { cursor: "pointer" } : {}} {...props} />
 );
 
 const Icon: FC<IconPropTypes> = ({ name, color, size, onClick, pointer }) => (
