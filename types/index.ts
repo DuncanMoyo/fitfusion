@@ -34,33 +34,40 @@ export type CreateEventParams = {
 };
 
 export type GetAllEventParams = {
-  query: string
-  category: string
-  limit: number
-  page: number
-}
+  query: string;
+  category: string;
+  limit: number;
+  page: number;
+};
 
 export type EventDeleteParams = {
-  eventId: string
-  path: string
-}
+  eventId: string;
+  path: string;
+};
 
 export type UpdateEventParams = {
-  userId: string
+  userId: string;
   event: {
-    _id: string
-    title: string
-    imageUrl: string
-    description: string
-    location: string
-    startDateTime: Date
-    endDateTime: Date
-    categoryId: string
-    price: string
-    isFree: boolean
-    url: string
-  }
-  path: string
+    _id: string;
+    title: string;
+    imageUrl: string;
+    description: string;
+    location: string;
+    startDateTime: Date;
+    endDateTime: Date;
+    categoryId: string;
+    price: string;
+    isFree: boolean;
+    url: string;
+  };
+  path: string;
+};
+
+export type GetSimilarEventsParams = {
+  categoryId: string
+  eventId: string
+  limit?: number
+  page: number | string
 }
 
 // CATEGORY PARAMETERS
