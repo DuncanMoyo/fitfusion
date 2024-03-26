@@ -102,3 +102,14 @@ export type OrderCreateParams = {
   totalAmount: string
   createdAt: Date
 }
+
+export type GetOrdersByUserParams = {
+  userId: string | null
+  limit?: number
+  page: string | number | null
+}
+
+export type GetOrdersByEventParams = {
+  eventId: string
+  searchString: string
+}
