@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import { IFitnessEvent } from "@/mongodb/models/fitnessEvent.model";
 import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
@@ -7,8 +7,10 @@ import { Button } from "../ui/button";
 import Order from "./Order";
 
 const OrderButton = ({ event }: { event: IFitnessEvent }) => {
+  
   const { user } = useUser();
   const userId = user?.publicMetadata.userId as string;
+  console.log("🚀 ~ OrderButton ~ userId:", userId)
 
   const completedEvent = new Date(event.endDateTime) < new Date();
   return (
