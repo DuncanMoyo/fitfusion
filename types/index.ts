@@ -85,3 +85,20 @@ export type SearchParamProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+// CHECKOUT PARAMS
+export type OrderCheckoutParams = {
+  eventTitle: string
+  eventId: string
+  price: string
+  isFree: boolean
+  buyerId: string
+}
+
+export type OrderCreateParams = {
+  stripeId: string
+  eventId: string
+  buyerId: string
+  totalAmount: string
+  createdAt: Date
+}
