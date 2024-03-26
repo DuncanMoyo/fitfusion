@@ -1,6 +1,8 @@
 import { EventList } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import { getOrdersByUser } from "@/lib/actions/checkout.actions";
 import { getEventsByOrganiser } from "@/lib/actions/event.actions";
+import { IFitnessOrder } from "@/mongodb/models/order.model";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -10,6 +12,12 @@ const MyProfile = async () => {
 
   const eventsOrganised = await getEventsByOrganiser({ userId, page: 1 });
   // console.log("🚀 ~ MyProfile ~ eventsOrganised:", eventsOrganised);
+
+  const orders = await getOrdersByUser({ userId, page: 1 });
+  const orderedEvents =
+    orders?.data.map((order: IFitnessOrder) => order.event) || [];
+    // console.log("🚀 ~ MyProfile ~ orderedEventss:", orderedEvents)
+
   return (
     <>
       <section className="py-5 md:py-10">
@@ -23,9 +31,9 @@ const MyProfile = async () => {
         </div>
       </section>
 
-      {/* <section className="my-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">
+      <section className="my-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">
         <EventList
-          data={events?.data}
+          data={orderedEvents}
           emptyTitle="No Tickets at the moment"
           emptySubtitle="Keep Calm - Exhilarating events await!"
           eventType="My_Tickets"
@@ -34,7 +42,7 @@ const MyProfile = async () => {
           totalPages={2}
           urlParam="ordersPage"
         />
-      </section> */}
+      </section>
 
       <section className="py-5 md:py-10">
         <div className="flex justify-center items-center sm:justify-between max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full">

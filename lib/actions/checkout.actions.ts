@@ -1,11 +1,19 @@
 "use server";
 
-import { OrderCheckoutParams, OrderCreateParams } from "@/types";
+import {
+  GetOrdersByEventParams,
+  GetOrdersByUserParams,
+  OrderCheckoutParams,
+  OrderCreateParams,
+} from "@/types";
 import { handleError } from "../utils";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { establishDatabaseConnection } from "@/mongodb";
 import FitnessOrder from "@/mongodb/models/order.model";
+import User from "@/mongodb/models/user.model";
+import { ObjectId } from "mongodb";
+import FitnessEvent from "@/mongodb/models/fitnessEvent.model";
 
 export const orderCheckout = async (checkout: OrderCheckoutParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -55,3 +63,103 @@ export const createOrder = async (order: OrderCreateParams) => {
     handleError(error);
   }
 };
+
+export async function getOrdersByUser({
+  userId,
+  limit = 3,
+  page,
+}: GetOrdersByUserParams) {
+  try {
+    await establishDatabaseConnection();
+
+    const skipAmount = (Number(page) - 1) * limit;
+    const conditions = { buyer: userId };
+
+    const orders = await FitnessOrder.distinct("event._id")
+      .find(conditions)
+      .sort({ createdAt: "desc" })
+      .skip(skipAmount)
+      .limit(limit)
+      .populate({
+        path: "event",
+        model: FitnessEvent,
+        populate: {
+          path: "organiser",
+          model: User,
+          select: "_id firstName lastName",
+        },
+      });
+
+    const ordersCount = await FitnessOrder.distinct("event._id").countDocuments(
+      conditions
+    );
+
+    return {
+      data: JSON.parse(JSON.stringify(orders)),
+      totalPages: Math.ceil(ordersCount / limit),
+    };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getOrdersByEvent({
+  searchString,
+  eventId,
+}: GetOrdersByEventParams) {
+  try {
+    await establishDatabaseConnection();
+
+    if (!eventId) throw new Error("Event ID is required");
+    const eventObjectId = new ObjectId(eventId);
+
+    const orders = await FitnessOrder.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "buyer",
+          foreignField: "_id",
+          as: "buyer",
+        },
+      },
+      {
+        $unwind: "$buyer",
+      },
+      {
+        $lookup: {
+          from: "events",
+          localField: "event",
+          foreignField: "_id",
+          as: "event",
+        },
+      },
+      {
+        $unwind: "$event",
+      },
+      {
+        $project: {
+          _id: 1,
+          totalAmount: 1,
+          createdAt: 1,
+          eventTitle: "$event.title",
+          eventId: "$event._id",
+          buyer: {
+            $concat: ["$buyer.firstName", " ", "$buyer.lastName"],
+          },
+        },
+      },
+      {
+        $match: {
+          $and: [
+            { eventId: eventObjectId },
+            { buyer: { $regex: RegExp(searchString, "i") } },
+          ],
+        },
+      },
+    ]);
+
+    return JSON.parse(JSON.stringify(orders));
+  } catch (error) {
+    handleError(error);
+  }
+}
