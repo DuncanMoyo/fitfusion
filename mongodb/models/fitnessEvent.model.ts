@@ -5,7 +5,7 @@ export interface IFitnessEvent extends Document {
   title: string;
   description?: string;
   category: { _id: string; name: string };
-  price?: string;
+  price: string;
   isFree: boolean;
   createdAt: Date;
   startDateTime: Date;
