@@ -3,20 +3,27 @@ import { Button } from "@/components/ui/button";
 import { getOrdersByUser } from "@/lib/actions/checkout.actions";
 import { getEventsByOrganiser } from "@/lib/actions/event.actions";
 import { IFitnessOrder } from "@/mongodb/models/order.model";
+import { SearchParamProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
 
-const MyProfile = async () => {
+const MyProfile = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
-  const eventsOrganised = await getEventsByOrganiser({ userId, page: 1 });
+  const ordersPage = Number(searchParams?.ordersPage) || 1;
+  const eventsPage = Number(searchParams?.eventsPage) || 1;
+
+  const eventsOrganised = await getEventsByOrganiser({
+    userId,
+    page: eventsPage,
+  });
   // console.log("🚀 ~ MyProfile ~ eventsOrganised:", eventsOrganised);
 
-  const orders = await getOrdersByUser({ userId, page: 1 });
+  const orders = await getOrdersByUser({ userId, page: ordersPage });
   const orderedEvents =
     orders?.data.map((order: IFitnessOrder) => order.event) || [];
-    // console.log("🚀 ~ MyProfile ~ orderedEventss:", orderedEvents)
+  // console.log("🚀 ~ MyProfile ~ orderedEventss:", orderedEvents)
 
   return (
     <>
@@ -38,8 +45,8 @@ const MyProfile = async () => {
           emptySubtitle="Keep Calm - Exhilarating events await!"
           eventType="My_Tickets"
           limit={3}
-          currentPage={1}
-          totalPages={2}
+          currentPage={ordersPage}
+          totalPages={orders?.totalPages}
           urlParam="ordersPage"
         />
       </section>
@@ -62,9 +69,9 @@ const MyProfile = async () => {
           emptySubtitle="Get Funky - Create one now"
           eventType="Events_Organised"
           limit={6}
-          currentPage={1}
+          currentPage={eventsPage}
           urlParam="eventsPage"
-          totalPages={2}
+          totalPages={eventsOrganised?.totalPages}
         />
       </section>
     </>
