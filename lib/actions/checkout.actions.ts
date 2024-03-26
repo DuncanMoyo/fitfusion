@@ -1,9 +1,11 @@
 "use server";
 
-import { OrderCheckoutParams } from "@/types";
+import { OrderCheckoutParams, OrderCreateParams } from "@/types";
 import { handleError } from "../utils";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
+import { establishDatabaseConnection } from "@/mongodb";
+import FitnessOrder from "@/mongodb/models/order.model";
 
 export const orderCheckout = async (checkout: OrderCheckoutParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -28,11 +30,27 @@ export const orderCheckout = async (checkout: OrderCheckoutParams) => {
         eventId: checkout.eventId,
         buyerId: checkout.buyerId,
       },
-      mode: "payment", 
+      mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
     redirect(session.url!);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createOrder = async (order: OrderCreateParams) => {
+  try {
+    await establishDatabaseConnection();
+
+    const newOrder = await FitnessOrder.create({
+      ...order,
+      event: order.eventId,
+      buyer: order.buyerId,
+    });
+
+    return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
     handleError(error);
   }
