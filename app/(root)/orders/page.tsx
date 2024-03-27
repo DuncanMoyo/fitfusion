@@ -1,3 +1,4 @@
+import { EventSearch } from "@/components/shared";
 import { getOrdersByEvent } from "@/lib/actions/checkout.actions";
 import { dateTimeFormat, formattedPrice } from "@/lib/utils";
 import { IFitnessOrderItem } from "@/mongodb/models/order.model";
@@ -5,22 +6,29 @@ import { SearchParamProps } from "@/types";
 
 const Orders = async ({ searchParams }: SearchParamProps) => {
   const eventId = (searchParams?.eventId as string) || "";
+  //  console.log("🚀 ~ Orders ~ eventId:", eventId)
   const searchText = (searchParams?.query as string) || "";
+  //  console.log("🚀 ~ Orders ~ searchText:", searchText)
 
   const orders = await getOrdersByEvent({ eventId, searchString: searchText });
+   console.log("🚀 ~ Orders ~ orders:", orders);
 
   return (
     <>
-      <section className=" bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
-        <h3 className="wrapper h3-bold text-center sm:text-left ">Orders</h3>
+      <section className=" py-5 md:py-10">
+        <h3 className="max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full font-bold text-[28px] leading-[36px] md:text-[36px] md:leading-[44px] text-center sm:text-left ">
+          Orders
+        </h3>
       </section>
 
-      <section className="wrapper mt-8"></section>
+      <section className="max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full mt-8">
+        <EventSearch />
+      </section>
 
-      <section className="wrapper overflow-x-auto">
+      <section className="max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full overflow-x-auto">
         <table className="w-full border-collapse border-t">
           <thead>
-            <tr className="p-medium-14 border-b text-grey-500">
+            <tr className="font-medium text-[24px] leading-[36px] border-b text-gray-500">
               <th className="min-w-[250px] py-3 text-left">Order ID</th>
               <th className="min-w-[200px] flex-1 py-3 pr-4 text-left">
                 Event Title
@@ -43,12 +51,10 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
                   orders.map((row: IFitnessOrderItem) => (
                     <tr
                       key={row._id}
-                      className="p-regular-14 lg:p-regular-16 border-b "
+                      className="text-[14px] font-normal leading-[20px] lg:text-[16px] lg:font-normal lg:leading-[24px] border-b "
                       style={{ boxSizing: "border-box" }}
                     >
-                      <td className="min-w-[250px] py-4 text-primary-500">
-                        {row._id}
-                      </td>
+                      <td className="min-w-[250px] py-4 text-cyan-300">{row._id}</td>
                       <td className="min-w-[200px] flex-1 py-4 pr-4">
                         {row.eventTitle}
                       </td>
