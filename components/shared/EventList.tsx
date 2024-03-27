@@ -1,6 +1,7 @@
 import { IFitnessEvent } from "@/mongodb/models/fitnessEvent.model";
 import React from "react";
 import EventListCard from "./EventListCard";
+import FitnessPagination from "./FitnessPagination";
 
 type EventListProps = {
   data: IFitnessEvent[];
@@ -18,9 +19,8 @@ const EventList = ({
   emptyTitle,
   emptySubtitle,
   eventType,
-  limit,
   currentPage,
-  totalPages,
+  totalPages = 0,
   urlParam,
 }: EventListProps) => {
   return (
@@ -43,6 +43,13 @@ const EventList = ({
               );
             })}
           </ul>
+          {totalPages > 1 && (
+            <FitnessPagination
+              urlParamTitle={urlParam}
+              page={currentPage}
+              totalPages={totalPages}
+            />
+          )}
         </div>
       ) : (
         <div className="min-h-[200px] w-full flex justify-center items-center max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 gap-3 flex-col py-28 text-center rounded-2xl bg-gray-50 ">

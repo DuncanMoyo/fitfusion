@@ -124,3 +124,9 @@ export type CleanUpUrlParams = {
   params: string;
   keysToRemove: string[];
 };
+
+export type FitnessPaginationProps = {
+  page: number | string;
+  totalPages: number;
+  urlParamTitle?: string;
+};
