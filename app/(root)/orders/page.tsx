@@ -11,7 +11,7 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
   //  console.log("🚀 ~ Orders ~ searchText:", searchText)
 
   const orders = await getOrdersByEvent({ eventId, searchString: searchText });
-   console.log("🚀 ~ Orders ~ orders:", orders);
+  //  console.log("🚀 ~ Orders ~ orders:", orders);
 
   return (
     <>

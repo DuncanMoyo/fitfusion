@@ -64,17 +64,17 @@ export type UpdateEventParams = {
 };
 
 export type GetSimilarEventsParams = {
-  categoryId: string
-  eventId: string
-  limit?: number
-  page: number | string
-}
+  categoryId: string;
+  eventId: string;
+  limit?: number;
+  page: number | string;
+};
 
 export type GetEventsByOrganiserParams = {
-  userId: string
-  limit?: number
-  page: number
-}
+  userId: string;
+  limit?: number;
+  page: number;
+};
 
 // CATEGORY PARAMETERS
 export type CreateCategoryParams = {
@@ -88,28 +88,39 @@ export type SearchParamProps = {
 
 // CHECKOUT PARAMS
 export type OrderCheckoutParams = {
-  eventTitle: string
-  eventId: string
-  price: string
-  isFree: boolean
-  buyerId: string
-}
+  eventTitle: string;
+  eventId: string;
+  price: string;
+  isFree: boolean;
+  buyerId: string;
+};
 
 export type OrderCreateParams = {
-  stripeId: string
-  eventId: string
-  buyerId: string
-  totalAmount: string
-  createdAt: Date
-}
+  stripeId: string;
+  eventId: string;
+  buyerId: string;
+  totalAmount: string;
+  createdAt: Date;
+};
 
 export type GetOrdersByUserParams = {
-  userId: string | null
-  limit?: number
-  page: string | number | null
-}
+  userId: string | null;
+  limit?: number;
+  page: string | number | null;
+};
 
 export type GetOrdersByEventParams = {
-  eventId: string
-  searchString: string
-}
+  eventId: string;
+  searchString: string;
+};
+
+export type UrlSearchParams = {
+  params: string;
+  key: string;
+  value: string | null;
+};
+
+export type CleanUpUrlParams = {
+  params: string;
+  keysToRemove: string[];
+};
