@@ -1,18 +1,23 @@
-import { EventList } from "@/components/shared";
+import { EventList, EventSearch } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+  const page = Number(searchParams?.page) || 1;
+  const searchPhrase = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
+
   const events = await getAllEvents({
-    query: "",
-    category: "",
-    page: 1,
+    query: searchPhrase,
+    category,
+    page,
     limit: 6,
   });
+  // console.log("🚀 ~ Home ~ events:", events)
 
-  // console.log("🚀 ~ Home ~ events:", events);
 
   return (
     <>
@@ -52,7 +57,7 @@ export default async function Home() {
           Trusted by <br /> Hundreds of Fitness Gurus
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search Filter By Category
+          <EventSearch />
         </div>
         <EventList
           data={events?.data}
@@ -60,8 +65,8 @@ export default async function Home() {
           emptySubtitle="Come back later"
           eventType="All_Events"
           limit={6}
-          currentPage={1}
-          totalPages={2}
+          currentPage={page}
+          totalPages={events?.totalPages}
         />
       </section>
     </>

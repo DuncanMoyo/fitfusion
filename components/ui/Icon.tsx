@@ -9,6 +9,7 @@ import {
   MdLink,
   MdLocationPin,
   MdMenu,
+  MdOutlineManageSearch,
 } from "react-icons/md";
 import { LuExternalLink } from "react-icons/lu";
 
@@ -20,6 +21,7 @@ export const iconNames = [
   "edit",
   "delete",
   "externalLink",
+  "search",
 ] as const;
 
 export type IconName = (typeof iconNames)[number];
@@ -55,6 +57,8 @@ const selectIcon = (
       return <MdDelete />;
     case "externalLink":
       return <LuExternalLink />;
+    case "search":
+      return <MdOutlineManageSearch />;
     default:
       return <></>;
   }

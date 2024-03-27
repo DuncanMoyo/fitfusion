@@ -113,6 +113,11 @@ export async function getOrdersByEvent({
     if (!eventId) throw new Error("Event ID is required");
     const eventObjectId = new ObjectId(eventId);
 
+    // console.log("Constructed query:", {
+    //   eventId: eventObjectId, // Log the constructed query object
+    //   searchString,
+    // });
+
     const orders = await FitnessOrder.aggregate([
       {
         $lookup: {
@@ -127,7 +132,7 @@ export async function getOrdersByEvent({
       },
       {
         $lookup: {
-          from: "events",
+          from: "fitnessevents",
           localField: "event",
           foreignField: "_id",
           as: "event",
@@ -156,7 +161,10 @@ export async function getOrdersByEvent({
           ],
         },
       },
-    ]);
+    ]).catch((error) => {
+      console.error("Error during aggregation:", error);
+      throw error;
+    });
 
     return JSON.parse(JSON.stringify(orders));
   } catch (error) {

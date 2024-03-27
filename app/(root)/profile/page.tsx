@@ -32,7 +32,7 @@ const MyProfile = async ({ searchParams }: SearchParamProps) => {
           <h3 className="text-center sm:text-left font-bold text-[28px] leading-[36px] md:text-[36px] md:leading-[44px]">
             My Event Passes
           </h3>
-          <Button className="hidden sm:flex" asChild>
+          <Button className="hidden sm:flex rounded-full" asChild>
             <Link href="/#events">Discover More Events</Link>
           </Button>
         </div>
@@ -56,7 +56,7 @@ const MyProfile = async ({ searchParams }: SearchParamProps) => {
           <h3 className="text-center sm:text-left font-bold text-[28px] leading-[36px] md:text-[36px] md:leading-[44px]">
             Events I created
           </h3>
-          <Button className="hidden sm:flex" asChild>
+          <Button className="hidden sm:flex rounded-full" asChild>
             <Link href="/events/create">Create a New Event</Link>
           </Button>
         </div>
