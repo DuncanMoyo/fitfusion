@@ -50,7 +50,7 @@ const EventDetails = async ({
                 </p>
               </div>
             </div>
-            
+
             <OrderButton event={event} />
 
             <div className="flex flex-col gap-5">
@@ -90,9 +90,9 @@ const EventDetails = async ({
           emptyTitle="No Events Found"
           emptySubtitle="Come back later"
           eventType="All_Events"
-          limit={6}
-          currentPage={1}
-          totalPages={2}
+          limit={3}
+          currentPage={searchParams.currentPage as string}
+          totalPages={similarEvents?.totalPages}
         />
       </section>
     </>
