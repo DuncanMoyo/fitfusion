@@ -11,7 +11,7 @@ const EventSearch = ({
 }: {
   placeholder?: string;
 }) => {
-  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
   const queryParams = useSearchParams();
 
   const router = useRouter();
@@ -19,23 +19,23 @@ const EventSearch = ({
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       let newUrl = "";
-      if (search) {
+      if (query) {
         newUrl = formUrlSearch({
           params: queryParams.toString(),
-          key: "search",
-          value: search,
+          key: "query",
+          value: query,
         });
       } else {
         newUrl = cleanUpUrl({
           params: queryParams.toString(),
-          keysToRemove: ["search"],
+          keysToRemove: ["query"],
         });
       }
       router.push(newUrl, { scroll: false });
     }, 300);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [search, queryParams, router]);
+  }, [query, queryParams, router]);
 
   return (
     <div className="min-h-[55px] w-full rounded-full px-4 bg-gray-50 overflow-hidden flex justify-center items-center">
@@ -43,7 +43,7 @@ const EventSearch = ({
       <Input
         type="text"
         placeholder={placeholder}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         className="ml-2 bg-gray-50"
       />
     </div>
