@@ -26,11 +26,8 @@ const populateEvent = async (query: any) => {
 };
 
 const getCategoryByName = async (name: string) => {
-  console.log("🚀 ~ getCategoryByName ~ getCategoryByName:", getCategoryByName)
   return Category.findOne({ name: { $regex: name, $options: "i" } });
 };
-console.log("🚀 ~ getCategoryByName ~ getCategoryByName again man:", getCategoryByName)
-
 
 export const createEvent = async ({
   userId,

@@ -1,4 +1,4 @@
-import { EventList, EventSearch } from "@/components/shared";
+import { EventList, EventSearch, FilterCategory } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import { SearchParamProps } from "@/types";
@@ -58,6 +58,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <EventSearch />
+          <FilterCategory />
         </div>
         <EventList
           data={events?.data}
