@@ -27,27 +27,6 @@ const FilterCategory = () => {
     getCategories();
   }, []);
 
-  // useEffect(() => {
-  //   const delayDebounceFn = setTimeout(() => {
-  //     let newUrl = "";
-  //     if (categories) {
-  //       newUrl = formUrlSearch({
-  //         params: queryParams.toString(),
-  //         key: "query",
-  //         value: categories,
-  //       });
-  //     } else {
-  //       newUrl = cleanUpUrl({
-  //         params: queryParams.toString(),
-  //         keysToRemove: ["query"],
-  //       });
-  //     }
-  //     router.push(newUrl, { scroll: false });
-  //   }, 300);
-
-  //   return () => clearTimeout(delayDebounceFn);
-  // }, [categories, queryParams, router]);
-
   const onSelectCategory = (category: string) => {
     let newUrl = "";
     if (category && category !== "All") {
@@ -64,6 +43,7 @@ const FilterCategory = () => {
     }
     router.push(newUrl, { scroll: false });
   };
+
   return (
     <Select onValueChange={(value) => onSelectCategory(value)}>
       <SelectTrigger className=" w-full bg-gray-50 h-[54px] rounded-full text-[16px] font-normal leading-[24px] px-5 py-3">
