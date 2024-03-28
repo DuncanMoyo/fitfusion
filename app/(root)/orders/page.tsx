@@ -22,7 +22,7 @@ const Orders = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full mt-8">
-        <EventSearch />
+        <EventSearch placeholder="Search by Buyer's name" />
       </section>
 
       <section className="max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full overflow-x-auto">

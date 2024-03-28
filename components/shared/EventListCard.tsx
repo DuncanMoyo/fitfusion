@@ -21,7 +21,7 @@ const EventListCard = ({
 
   const isEventOrganiser = userId === event.organiser._id.toString();
   return (
-    <div className="relative flex min-h-[380px] w-full max-w-[400px] flex-col rounded-xl bg-white overflow-hidden transition-all shadow-md hover:shadow-lg md:min-h-[440px]">
+    <div className="relative flex min-h-[380px] w-full max-w-[400px] flex-col rounded-xl bg-   overflow-hidden transition-all shadow-md hover:shadow-lg md:min-h-[440px]">
       <Link
         className="flex justify-center items-center flex-grow bg-gray-50 bg-cover bg-center"
         style={{ backgroundImage: `url(${event.imageUrl})` }}
