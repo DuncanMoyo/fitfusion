@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <h3 align="center">FitFusion: A Next 14 Events App</h3>
+</div>
 
-## Getting Started
+## 📋 <a name="table">Navigation</a>
 
-First, run the development server:
+1. [Introduction](#introduction)
+2. [Under The Hood](#under-the-hood)
+3. [Features](#features)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This repository is the code-base of FitFusion, an events Website where people of all ages, shapes and fitness levels can join and use.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## <a name="introduction">Introduction</a>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This powerful events app, built with cutting-edge Next.js 14 technology, is your one-stop shop for everything event-related. Explore a global hub buzzing with diverse events, all conveniently accessible in a single platform.  Whether you're looking to buy tickets or become an event host yourself, this app has you covered.  Its seamless integration with Stripe ensures secure and effortless payment processing for both attendees and organizers.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## <a name="tech-stack">Tech Stack</a>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js
+- TypeScript
+- Nextjs
+- React Hook Form
+- Zod
+- TailwindCSS
+- Shadcn
+- uploadthing
+- Stripe
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## <a name="features">🔋 Features</a>
 
-## Deploy on Vercel
+## Fitfusion Boasts of the following:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**User Management:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+* Secure login and account creation powered by Clerk.
+
+**Event Management:**
+
+* Create, view, update, and delete events with ease.
+  * Effortlessly add new events with details like title, date, location, and descriptions.
+  * Explore all events with detailed information like schedules and descriptions.
+  * Easily modify event details to keep information accurate. 
+  * Remove events from the system for effective platform management.
+
+**Enhanced User Experience:**
+
+* Discover related events displayed on event details pages for a more engaging experience.
+* Find events that match your interests with a powerful search and filter system.
+* View all events you created conveniently on your user profile.
+
+**Platform Flexibility:**
+
+* Easily add new event categories to keep your platform adaptable.
+
+**Seamless Transactions:**
+
+* Securely pay for events using Stripe for a smooth checkout experience.
+
+**Order Management:**
+
+* Track and manage all event registrations with a comprehensive order system.
+* Quickly search and find specific orders with ease.
