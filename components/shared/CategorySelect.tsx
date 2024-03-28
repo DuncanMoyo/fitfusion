@@ -54,7 +54,7 @@ const CategorySelect = ({ value, onChangeHandler }: CategorySelectProps) => {
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>

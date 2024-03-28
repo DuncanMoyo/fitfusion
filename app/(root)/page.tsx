@@ -18,7 +18,6 @@ export default async function Home({ searchParams }: SearchParamProps) {
   });
   // console.log("🚀 ~ Home ~ events:", events)
 
-
   return (
     <>
       <section className="py-5 md:py-10">
@@ -28,8 +27,9 @@ export default async function Home({ searchParams }: SearchParamProps) {
               Sweat, Bond, Transform: Your Health Goals, Our Mission
             </h1>
             <p className="text-[20px] font-normal leading-[30px] tracking-[2%] md:font-normal md:text-[24px] md:leading-[36px]">
-              Schedule and absorb beneficial advice from fitness gurus in
-              leading health companies with our worldwide community.
+              Join our worldwide community to schedule fitness events and absorb
+              beneficial advice from fitness enthusiasts. Everyone, regardless
+              of their background, is welcome to contribute and learn.
             </p>
             <Button
               asChild
@@ -53,8 +53,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
         id="events"
         className="my-8 flex flex-col gap-8 max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full md:gap-12"
       >
-        <h2 className="font-medium text-[32px] leading-[40px] lg:text-[36px] lg:leading-[44px] xl:text-[40px] xl:leading-[48px]">
-          Trusted by <br /> Hundreds of Fitness Gurus
+        <h2 className="font-medium text-[30px] leading-[40px] lg:text-[36px] lg:leading-[44px] xl:text-[40px] xl:leading-[48px] whitespace-nowrap">
+        Appreciated by  <br className="md:hidden" /> Fitness Enthusiasts Everywhere
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <EventSearch />

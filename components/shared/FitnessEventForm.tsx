@@ -168,7 +168,7 @@ const FitnessEventForm = ({
                 <FormControl>
                   <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icon name="location" />
-                    <Input {...field} placeholder="Event Location or Online" />
+                    <Input className="ml-2" {...field} placeholder="Event Location or Online" />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -186,7 +186,7 @@ const FitnessEventForm = ({
                 <FormControl>
                   <div className="flex md:justify-start justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icon name="calendar" />
-                    <FormLabel className="text-gray-600 mr-3">
+                    <FormLabel className="text-gray-600 ml-2">
                       Start Date
                     </FormLabel>
                     <DatePicker
@@ -212,7 +212,7 @@ const FitnessEventForm = ({
                 <FormControl>
                   <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2 md:justify-start">
                     <Icon name="calendar" />
-                    <FormLabel className="text-gray-600 mr-3">
+                    <FormLabel className="text-gray-600 mr-3 ml-2">
                       End Date
                     </FormLabel>
                     <DatePicker
@@ -239,15 +239,15 @@ const FitnessEventForm = ({
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2 md:justify-start">
-                    <FormLabel className="text-gray-600 mr-3">R</FormLabel>
-                    <Input type="number" placeholder="Price" {...field} />
+                    <FormLabel className="text-gray-600 ml-2">R</FormLabel>
+                    <Input className="ml-2" type="number" placeholder="Price" {...field} />
                     <FormField
                       control={form.control}
                       name="isFree"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <div className="flex items-center">
+                            <div className="flex items-center ml-6">
                               <FormLabel
                                 htmlFor="isFree"
                                 className="px-3 whitespace-nowrap"
@@ -283,7 +283,7 @@ const FitnessEventForm = ({
                 <FormControl>
                   <div className="flex justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icon name="link" />
-                    <Input {...field} placeholder="URL" />
+                    <Input className="ml-2" {...field} placeholder="URL" />
                   </div>
                 </FormControl>
                 <FormMessage />
