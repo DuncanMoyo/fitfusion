@@ -186,7 +186,7 @@ const FitnessEventForm = ({
                 <FormControl>
                   <div className="flex md:justify-start justify-center items-center h-14 w-full overflow-hidden rounded-full bg-gray-50 px-4 py-2">
                     <Icon name="calendar" />
-                    <FormLabel className="text-gray-600 ml-2">
+                    <FormLabel className="text-gray-600 ml-2 mr-3">
                       Start Date
                     </FormLabel>
                     <DatePicker
